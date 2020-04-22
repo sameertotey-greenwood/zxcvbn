@@ -9,34 +9,12 @@ ________________________________________________________________________
 
 `Zxcvbn` attempts to give sound password advice through pattern matching and conservative entropy calculations. It finds 10k common passwords, common American names and surnames, common English words, and common patterns like dates, repeats (aaa), sequences (abcd), and QWERTY patterns.
 
+For full motivation, see [zxcvbn: realistic password strength estimation.](https://blogs.dropbox.com/tech/2012/04/zxcvbn-realistic-password-strength-estimation/)
 
+## Requirements
 
+Targets [iOS](https://developer.apple.com/ios)/[iPadOS](https://developer.apple.com/ipad)/[tvOS ](https://developer.apple.com/tvos) 13, as well as [watchOS](https://developer.apple.com/watchos) 6 and [macOS](https://developer.apple.com/macos) 10.15 Catalina. Written in [Swift](https://developer.apple.com/documentation/swift) 5.2 requires [Xcode](https://developer.apple.com/xcode) 11.4 or newer to build. Command-line interface depends on [Swift Argument Parser.](https://github.com/apple/swift-argument-parser)
 
-[JavaScript](https://github.com/dropbox/zxcvbn) (well, CoffeeScript) or the [Python port](https://github.com/dropbox/python-zxcvbn).
+## Acknowledgments
 
-For full motivation, see [zxcvbn: realistic password strength estimation](https://blogs.dropbox.com/tech/2012/04/zxcvbn-realistic-password-strength-estimation/).
-
-
-
-# Acknowledgments
-
-Thanks to Dropbox for supporting independent projects and open source software.
-
-A huge thanks to [Dan Wheeler](https://github.com/lowe) for the original [CoffeeScript implementation](https://github.com/dropbox/zxcvbn). Thanks to [Ryan Pearl](https://github.com/dropbox/python-zxcvbn) for his [Python port](). I've enjoyed copying your code :)
-
-Echoing the acknowledgments from earlier libraries...
-
-Many thanks to Mark Burnett for releasing his 10k top passwords list:
-
-http://xato.net/passwords/more-top-worst-passwords
-
-and for his 2006 book,
-"Perfect Passwords: Selection, Protection, Authentication"
-
-Huge thanks to Wiktionary contributors for building a frequency list
-of English as used in television and movies:
-http://en.wiktionary.org/wiki/Wiktionary:Frequency_lists
-
-Last but not least, big thanks to xkcd :)
-https://xkcd.com/936/
-
+Ported from [Leah Culver](https://github.com/leah)'s excellent [Objective-C implementation.](https://github.com/dropbox/zxcvbn-ios)
