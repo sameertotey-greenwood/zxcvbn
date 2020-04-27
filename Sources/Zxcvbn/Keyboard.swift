@@ -3,6 +3,18 @@ import Foundation
 enum Keyboard: String, CaseIterable {
     case qwerty, dvorak, macKeypad = "mac_keypad", keypad
     
+    var averageDegree: Double {
+        var total: Int = 0
+        for values in keyAdjacencyMap.values {
+            total += values.filter { $0 != nil }.count
+        }
+        return Double(total) / Double(keyAdjacencyMap.count)
+    }
+    
+    var keyCount: Int {
+        return keyAdjacencyMap.count
+    }
+    
     var keyAdjacencyMap: [String: [String?]] {
         if Self.keyAdjacencyMap == nil {
             Self.keyAdjacencyMap = try! JSONDecoder().decode([String: [String: [String?]]].self, from: Keyboard_Data)
@@ -11,6 +23,75 @@ enum Keyboard: String, CaseIterable {
     }
     
     private static var keyAdjacencyMap: [String: [String: [String?]]]?
+}
+
+extension Keyboard: Matching {
+    
+    // MARK: Matching
+    func matches(_ string: String) -> [Match] {
+        let adjacencyMap: [String: [String?]] = self.keyAdjacencyMap
+        let components: [String] = string.map { character in
+            return "\(character)"
+        }
+        var matches: [KeyboardMatch] = []
+        var i: Int = 0
+        while i < string.count - 1 {
+            var j: Int = i + 1
+            var lastDirection: Int = -1
+            var turns: Int = 0
+            var shiftedCount: Int = 0
+            while true {
+                let adjacentKeys: [String?] = adjacencyMap[components[j - 1]] ?? []
+                var found: Bool = false
+                var foundDirection: Int = -1
+                var currentDirection: Int = -1
+                if j < string.count {
+                    let current: String  = components[j]
+                    for adjacentKey in adjacentKeys {
+                        currentDirection += 1
+                        guard let adjacentKey: String = adjacentKey, adjacentKey.contains(current) else {
+                            continue
+                        }
+                        let adjacentComponents: [String] = adjacentKey.map { character in
+                            return "\(character)"
+                        }
+                        found = true
+                        foundDirection = currentDirection
+                        if adjacentComponents.last == current {
+                            shiftedCount += 1
+                        }
+                        if lastDirection != foundDirection {
+                            turns += 1
+                            lastDirection = foundDirection
+                        }
+                        break
+                    }
+                }
+                if found {
+                    j += 1
+                } else {
+                    if j - i > 2 {
+                        let range: ClosedRange<Int> = i...(j - 1)
+                        matches.append(KeyboardMatch(turns: turns, shiftedCount: shiftedCount, keyboardName: rawValue, range: range, token: "\(components[range].joined())"))
+                    }
+                    i = j
+                    break
+                }
+            }
+        }
+        return matches
+    }
+}
+
+struct KeyboardMatch: Match {
+    let turns: Int
+    let shiftedCount: Int
+    let keyboardName: String
+    
+    // MARK: Match
+    let range: ClosedRange<Int>
+    let token: String
+    let pattern: String = "keyboard"
 }
 
 // TODO: Move data into separate JSON file... when SwiftPM adds support for JSON files

@@ -3,19 +3,31 @@ import Foundation
 enum Dictionary: RawRepresentable, Equatable, CaseIterable {
     case passwords, english, femaleNames, surnames, maleNames, custom([String])
     
-    var ranked: [String] {
-        switch self {
-        case .custom(let ranked):
+    var ranked: [String: Int] {
+        func ranked(strings: [String]) -> [String: Int] {
+            var ranked: [String: Int] = [:]
+            for (index, string) in strings.enumerated() {
+                ranked[string] = index + 1
+            }
             return ranked
+        }
+        
+        switch self {
+        case .custom(let strings):
+            return ranked(strings: strings)
         default:
             if Self.ranked == nil {
-                Self.ranked = try! JSONDecoder().decode([String: [String]].self, from: Dictionary_Data)
+                let dictionary: [String: [String]] = try! JSONDecoder().decode([String: [String]].self, from: Dictionary_Data)
+                Self.ranked = [:]
+                for key in dictionary.keys {
+                    Self.ranked?[key] = ranked(strings: dictionary[key]!)
+                }
             }
             return Self.ranked![rawValue]!
         }
     }
     
-    private static var ranked: [String: [String]]?
+    private static var ranked: [String: [String: Int]]?
     
     // MARK: RawRepresentable
     var rawValue: String {
@@ -41,6 +53,43 @@ enum Dictionary: RawRepresentable, Equatable, CaseIterable {
     
     // MARK: CaseIterable
     static let allCases: [Dictionary] = [.passwords, .english, .femaleNames, .surnames, .maleNames]
+}
+
+extension Dictionary: Matching {
+    
+    // MARK: Matching
+    func matches(_ string: String) -> [Match] {
+        let ranked: [String: Int] = self.ranked
+        let components: [String] = string.map { character in
+            return "\(character)"
+        }
+        let lowercasedComponents: [String] = string.lowercased().map { character in
+            return "\(character)"
+        }
+        var matches: [DictionaryMatch] = []
+        for i in 0..<string.count {
+            for j in i..<string.count {
+                let range: ClosedRange<Int> = i...j
+                let matched: String = lowercasedComponents[range].joined()
+                guard let rank: Int = ranked[matched] else {
+                    continue
+                }
+                matches.append(DictionaryMatch(rank: rank, matched: matched, dictionaryName: rawValue, range: range, token: components[range].joined()))
+            }
+        }
+        return matches
+    }
+}
+
+struct DictionaryMatch: Match {
+    let rank: Int
+    let matched: String
+    let dictionaryName: String
+    
+    // MARK: Match
+    let range: ClosedRange<Int>
+    let token: String
+    let pattern: String = "dictionary"
 }
 
 // TODO: Move data into separate JSON file... when SwiftPM adds support for JSON files
