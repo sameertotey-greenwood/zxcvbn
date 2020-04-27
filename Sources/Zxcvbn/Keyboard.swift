@@ -94,7 +94,6 @@ struct KeyboardMatch: Match {
     let pattern: String = "keyboard"
 }
 
-// TODO: Move data into separate JSON file... when SwiftPM adds support for JSON files
 private let Keyboard_Data: Data = """
 {
     "qwerty": {

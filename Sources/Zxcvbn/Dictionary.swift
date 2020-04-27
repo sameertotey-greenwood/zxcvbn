@@ -52,10 +52,13 @@ enum Dictionary: RawRepresentable, Equatable, CaseIterable {
     }
     
     // MARK: CaseIterable
-    static let allCases: [Dictionary] = [.passwords, .english, .femaleNames, .surnames, .maleNames]
+    static let allCases: [Self] = [.passwords, .english, .femaleNames, .surnames, .maleNames]
 }
 
 extension Dictionary: Matching {
+    static func matches(_ string: String, in cases: [Self] = allCases) -> [Match] {
+        return []
+    }
     
     // MARK: Matching
     func matches(_ string: String) -> [Match] {
@@ -92,7 +95,6 @@ struct DictionaryMatch: Match {
     let pattern: String = "dictionary"
 }
 
-// TODO: Move data into separate JSON file... when SwiftPM adds support for JSON files
 private let Dictionary_Data: Data = """
 {
     "female_names": [
