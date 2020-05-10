@@ -56,9 +56,6 @@ enum Dictionary: RawRepresentable, Equatable, CaseIterable {
 }
 
 extension Dictionary: Matching {
-    static func matches(_ string: String, in cases: [Self] = allCases) -> [Match] {
-        return []
-    }
     
     // MARK: Matching
     func matches(_ string: String) -> [Match] {
