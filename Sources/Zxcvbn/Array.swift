@@ -1,6 +1,6 @@
 import Foundation
 
-extension Array: Matching where Element == Matching {
+extension Array: Matching where Element: Matching {
     
     // MARK: Matching
     func matches(_ string: String) -> [Match] {

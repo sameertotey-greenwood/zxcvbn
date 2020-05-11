@@ -100,15 +100,13 @@ extension L33t: Matching {
             guard !substitution.isEmpty else {
                 continue
             }
-            for dictionary in dictionaries {
-                for match in dictionary.matches(translate(string, with: substitution)) {
-                    let token: String = string.map { "\($0)" }[match.range].joined()
-                    guard let match: DictionaryMatch = match as? DictionaryMatch,
-                        match.matched != token.lowercased() else {
-                        continue
-                    }
-                    matches.append(L33tMatch(dictionary: match, token: token))
+            for match in dictionaries.matches(translate(string, with: substitution)) {
+                let token: String = string.map { "\($0)" }[match.range].joined()
+                guard let match: DictionaryMatch = match as? DictionaryMatch,
+                    match.matched != token.lowercased() else {
+                    continue
                 }
+                matches.append(L33tMatch(dictionary: match, token: token))
             }
         }
         return matches

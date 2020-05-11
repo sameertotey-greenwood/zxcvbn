@@ -17,4 +17,4 @@ Targets [iOS](https://developer.apple.com/ios)/[iPadOS](https://developer.apple.
 
 ## Acknowledgments
 
-Ported from [Leah Culver](https://github.com/leah)'s excellent [Objective-C implementation.](https://github.com/dropbox/zxcvbn-ios)
+Ported from [Leah Culver](https://github.com/leah)'s [Objective-C implementation.](https://github.com/dropbox/zxcvbn-ios)
