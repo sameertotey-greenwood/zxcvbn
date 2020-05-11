@@ -30,9 +30,7 @@ extension Keyboard: Matching {
     // MARK: Matching
     func matches(_ string: String) -> [Match] {
         let adjacencyMap: [String: [String?]] = self.keyAdjacencyMap
-        let components: [String] = string.map { character in
-            return "\(character)"
-        }
+        let components: [String] = string.components
         var matches: [KeyboardMatch] = []
         var i: Int = 0
         while i < string.count - 1 {
@@ -52,9 +50,7 @@ extension Keyboard: Matching {
                         guard let adjacentKey: String = adjacentKey, adjacentKey.contains(current) else {
                             continue
                         }
-                        let adjacentComponents: [String] = adjacentKey.map { character in
-                            return "\(character)"
-                        }
+                        let adjacentComponents: [String] = adjacentKey.components
                         found = true
                         foundDirection = currentDirection
                         if adjacentComponents.last == current {
@@ -72,7 +68,7 @@ extension Keyboard: Matching {
                 } else {
                     if j - i > 2 {
                         let range: ClosedRange<Int> = i...(j - 1)
-                        matches.append(KeyboardMatch(turns: turns, shiftedCount: shiftedCount, keyboardName: rawValue, range: range, token: "\(components[range].joined())"))
+                        matches.append(KeyboardMatch(turns: turns, shiftedCount: shiftedCount, keyboard: self, range: range, token: "\(components[range].joined())"))
                     }
                     i = j
                     break
@@ -86,7 +82,7 @@ extension Keyboard: Matching {
 struct KeyboardMatch: Match {
     let turns: Int
     let shiftedCount: Int
-    let keyboardName: String
+    let keyboard: Keyboard
     
     // MARK: Match
     let range: ClosedRange<Int>

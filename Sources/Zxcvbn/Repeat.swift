@@ -8,9 +8,7 @@ extension Repeat: Matching {
     
     // MARK: Matching
     func matches(_ string: String) -> [Match] {
-        let components: [String] = string.map { character in
-            return "\(character)"
-        }
+        let components: [String] = string.components
         var matches: [RepeatMatch] = []
         var i: Int = 0
         while i < components.count {

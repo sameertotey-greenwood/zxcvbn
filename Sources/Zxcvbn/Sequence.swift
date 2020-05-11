@@ -10,12 +10,8 @@ extension Sequence: Matching {
     
     // MARK: Matching
     func matches(_ string: String) -> [Match] {
-        let rawComponents: [String] = rawValue.map { character in
-            return "\(character)"
-        }
-        let components: [String] = string.map { character in
-            return "\(character)"
-        }
+        let rawComponents: [String] = rawValue.components
+        let components: [String] = string.components
         var matches: [SequenceMatch] = []
         var i: Int = 0
         while i < components.count {

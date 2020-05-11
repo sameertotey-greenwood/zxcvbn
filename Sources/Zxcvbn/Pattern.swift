@@ -31,9 +31,7 @@ extension Pattern: Matching {
     
     // MARK: Matching
     func matches(_ string: String) -> [Match] {
-        let components: [String] = string.map { character in
-            return "\(character)"
-        }
+        let components: [String] = string.components
         var matches: [PatternMatch] = []
         for result in expression.matches(in: string, options: [], range: NSRange(location: 0, length: string.count)) {
             let range: ClosedRange<Int> = result.range.lowerBound...(result.range.upperBound - 1)

@@ -60,12 +60,8 @@ extension Dictionary: Matching {
     // MARK: Matching
     func matches(_ string: String) -> [Match] {
         let ranked: [String: Int] = self.ranked
-        let components: [String] = string.map { character in
-            return "\(character)"
-        }
-        let lowercasedComponents: [String] = string.lowercased().map { character in
-            return "\(character)"
-        }
+        let components: [String] = string.components
+        let lowercasedComponents: [String] = string.lowercased().components
         var matches: [DictionaryMatch] = []
         for i in 0..<string.count {
             for j in i..<string.count {
