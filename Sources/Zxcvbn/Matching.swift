@@ -16,4 +16,8 @@ protocol Match {
     var pattern: String {
         get
     }
+    
+    var entropy: Double {
+        get
+    }
 }

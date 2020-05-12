@@ -58,4 +58,19 @@ struct SequenceMatch: Match {
     let range: ClosedRange<Int>
     let token: String
     let pattern: String = "sequence"
+    
+    var entropy: Double {
+        let component: String = token.components.first!
+        var entropy: Double = direction != .forward ? 1.0 : 0.0
+        if ["a", "1"].contains(component) {
+            entropy += 1.0
+        } else if "0123456789".contains(component) {
+            entropy += log2(10.0)
+        } else if "abcdefghijklmnopqrstuvwxyz".contains(component) {
+            entropy += log2(26.0)
+        } else {
+            entropy += log2(26.0) + 1.0
+        }
+        return entropy + log2(Double(token.count))
+    }
 }

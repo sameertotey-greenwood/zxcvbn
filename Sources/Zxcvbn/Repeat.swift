@@ -39,4 +39,8 @@ struct RepeatMatch: Match {
     let range: ClosedRange<Int>
     let token: String
     let pattern: String = "repeat"
+    
+    var entropy: Double {
+        return log2(Double(token.cardinality * token.count))
+    }
 }

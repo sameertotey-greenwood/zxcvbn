@@ -88,6 +88,26 @@ struct KeyboardMatch: Match {
     let range: ClosedRange<Int>
     let token: String
     let pattern: String = "keyboard"
+    
+    var entropy: Double {
+        var possibilities: Double = 0.0
+        for i in 2..<token.count {
+            for j in 1...min(i - 1, self.turns) {
+                possibilities += Double(Int(binomial: i - 1, j - 1)) * Double(keyboard.keyCount) * pow(keyboard.averageDegree, Double(j))
+            }
+        }
+        var entropy: Double = log2(possibilities)
+        if shiftedCount > 0 {
+            let unshiftedCount: Int = token.components.count - shiftedCount
+            possibilities = 0.0
+            for i in 0...min(shiftedCount, unshiftedCount) {
+                possibilities += Double(Int(binomial: shiftedCount + unshiftedCount, i))
+            }
+            entropy += log2(possibilities)
+            
+        }
+        return entropy
+    }
 }
 
 private let Keyboard_Data: Data = """

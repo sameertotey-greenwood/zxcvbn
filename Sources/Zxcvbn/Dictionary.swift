@@ -86,6 +86,10 @@ struct DictionaryMatch: Match {
     let range: ClosedRange<Int>
     let token: String
     let pattern: String = "dictionary"
+    
+    var entropy: Double {
+        return 0.0
+    }
 }
 
 private let Dictionary_Data: Data = """

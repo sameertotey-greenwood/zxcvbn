@@ -126,6 +126,10 @@ struct L33tMatch: Match {
     let range: ClosedRange<Int>
     let token: String
     let pattern: String = "l33t"
+    
+    var entropy: Double {
+        return 0.0
+    }
 }
 
 private let L33t_Data: Data = """

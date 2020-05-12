@@ -2,6 +2,10 @@ import XCTest
 @testable import Zxcvbn
 
 final class StringTests: XCTestCase {
+    
+}
+
+extension StringTests {
     func testCardinality() {
         XCTAssertEqual("zxcvbn".cardinality, 26)
         XCTAssertEqual("qwER43@!".cardinality, 95)
