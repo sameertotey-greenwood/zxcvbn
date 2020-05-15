@@ -33,12 +33,22 @@ extension L33tTests {
     func testStringMatches() {
         XCTAssertEqual(L33t().matches("zxcvbn").count, 0)
         XCTAssertEqual(L33t().matches("qwER43@!").count, 6)
+        XCTAssertEqual(L33t().matches("qwER43@!").first?.entropy ?? -1.0, 3.3219280, accuracy: 0.00001)
+        XCTAssertEqual(L33t().matches("Tr0ub4dour&3").count, 6)
+        XCTAssertEqual(L33t().matches("Tr0ub4dour&3").first?.entropy ?? -1.0, 16.784687, accuracy: 0.00001)
         XCTAssertEqual(L33t().matches("coRrecth0rseba++ery9.23.2007staple$").count, 29)
+        XCTAssertEqual(L33t().matches("coRrecth0rseba++ery9.23.2007staple$").first?.entropy ?? -1.0, 11.688250, accuracy: 0.00001)
         XCTAssertEqual(L33t().matches("D0g..................").count, 2)
+        XCTAssertEqual(L33t().matches("D0g..................").first?.entropy ?? -1.0, 6.584963, accuracy: 0.00001)
         XCTAssertEqual(L33t().matches("abcdefghijk987654321").count, 19)
+        XCTAssertEqual(L33t().matches("abcdefghijk987654321").first?.entropy ?? -1.0, 3.321928, accuracy: 0.00001)
         XCTAssertEqual(L33t().matches("neverforget13/3/1997").count, 6)
+        XCTAssertEqual(L33t().matches("neverforget13/3/1997").first?.entropy ?? -1.0, 11.458407, accuracy: 0.00001)
         XCTAssertEqual(L33t().matches("thx1138").count, 2)
+        XCTAssertEqual(L33t().matches("thx1138").first?.entropy ?? -1.0, 2.0, accuracy: 0.00001)
         XCTAssertEqual(L33t().matches("AOEUIDHG&*()LS_").count, 0)
+        XCTAssertEqual(L33t().matches("R0$38uD99").count, 4)
+        XCTAssertEqual(L33t().matches("R0$38uD99").first?.entropy ?? -1.0, 10.936638, accuracy: 0.00001)
         XCTAssertEqual(L33t().matches("").count, 0)
     }
 }

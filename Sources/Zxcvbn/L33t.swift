@@ -106,7 +106,7 @@ extension L33t: Matching {
                     match.matched != token.lowercased() else {
                     continue
                 }
-                matches.append(L33tMatch(dictionary: match, token: token))
+                matches.append(L33tMatch(dictionary: match, token: token, substitutions: substitution.filter { token.contains($0.key) }))
             }
         }
         return matches
@@ -115,10 +115,12 @@ extension L33t: Matching {
 
 struct L33tMatch: Match {
     let dictionaryMatch: DictionaryMatch
+    let substitutions: [String: String]
     
-    init(dictionary match: DictionaryMatch, token: String) {
+    init(dictionary match: DictionaryMatch, token: String, substitutions: [String: String]) {
         dictionaryMatch = match
         range = match.range
+        self.substitutions = substitutions
         self.token = token
     }
     
@@ -128,7 +130,15 @@ struct L33tMatch: Match {
     let pattern: String = "l33t"
     
     var entropy: Double {
-        return 0.0
+        var possibilities: Double = 0.0
+        for key in substitutions.keys {
+            let keyLength: Int = token.components(separatedBy: key).count - 1
+            let valueLength: Int = token.components(separatedBy: substitutions[key]!).count - 1
+            for i in 0...min(keyLength, valueLength) {
+                possibilities += Double(binomial: keyLength + valueLength, i)
+            }
+        }
+        return dictionaryMatch.entropy + max(log2(possibilities), 1.0)
     }
 }
 

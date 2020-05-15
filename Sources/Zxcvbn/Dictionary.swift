@@ -88,7 +88,30 @@ struct DictionaryMatch: Match {
     let pattern: String = "dictionary"
     
     var entropy: Double {
-        return 0.0
+        return log2(Double(rank)) + uppercasedEntropy
+    }
+    
+    private var uppercasedEntropy: Double {
+        let components: [String] = token.components
+        let uppercased: [Int] = components.enumerated().compactMap { index, component in
+            return "ABCDEFGHIJKLMNOPQRSTUVWXYZ".contains(component) ? index : nil
+        }
+        let lowercased: [Int] = components.enumerated().compactMap { index, component in
+            return "abcdefghijklmnopqrstuvwxyz".contains(component) ? index : nil
+        }
+        guard !uppercased.isEmpty else {
+            return 0.0
+        }
+        guard matched.uppercased() != matched,
+            !(uppercased.contains(0) && !uppercased.contains(1)),
+            !(uppercased.contains(components.count - 1) && !uppercased.contains(components.count - 2)) else {
+            return 1.0
+        }
+        var possibilities: Double = 0.0
+        for i in 0...min(uppercased.count, lowercased.count) {
+            possibilities += Double(binomial: uppercased.count + lowercased.count, i)
+        }
+        return log2(possibilities)
     }
 }
 

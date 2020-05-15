@@ -3,10 +3,10 @@ import XCTest
 
 final class KeyboardTests: XCTestCase {
     func testAverageDegree() {
-        XCTAssertEqual(Keyboard.qwerty.averageDegree, 4.595745, accuracy: 0.000001)
-        XCTAssertEqual(Keyboard.dvorak.averageDegree, 4.595745, accuracy: 0.000001)
-        XCTAssertEqual(Keyboard.macKeypad.averageDegree, 5.25, accuracy: 0.000001)
-        XCTAssertEqual(Keyboard.keypad.averageDegree, 5.066667, accuracy: 0.000001)
+        XCTAssertEqual(Keyboard.qwerty.averageDegree, 4)
+        XCTAssertEqual(Keyboard.dvorak.averageDegree, 4)
+        XCTAssertEqual(Keyboard.macKeypad.averageDegree, 5)
+        XCTAssertEqual(Keyboard.keypad.averageDegree, 5)
     }
     
     func testKeyAdjacencyMap() {
@@ -49,9 +49,9 @@ extension KeyboardTests {
         XCTAssertEqual(Keyboard.dvorak.matches("coRrecth0rseba++ery9.23.2007staple$").count, 2)
         XCTAssertEqual(Keyboard.dvorak.matches("coRrecth0rseba++ery9.23.2007staple$").first?.entropy ?? -1.0, 11.876517, accuracy: 0.00001)
         XCTAssertEqual(Keyboard.keypad.matches("coRrecth0rseba++ery9.23.2007staple$").count, 1)
-        XCTAssertEqual(Keyboard.keypad.matches("coRrecth0rseba++ery9.23.2007staple$").first?.entropy ?? -1.0, 18.634226, accuracy: 0.00001)
+        XCTAssertEqual(Keyboard.keypad.matches("coRrecth0rseba++ery9.23.2007staple$").first?.entropy ?? -1.0, 21.441581, accuracy: 0.00001)
         XCTAssertEqual(Keyboard.macKeypad.matches("coRrecth0rseba++ery9.23.2007staple$").count, 1)
-        XCTAssertEqual(Keyboard.macKeypad.matches("coRrecth0rseba++ery9.23.2007staple$").first?.entropy ?? -1.0, 18.634226, accuracy: 0.00001)
+        XCTAssertEqual(Keyboard.macKeypad.matches("coRrecth0rseba++ery9.23.2007staple$").first?.entropy ?? -1.0, 21.534690, accuracy: 0.00001)
         XCTAssertEqual(Keyboard.qwerty.matches("coRrecth0rseba++ery9.23.2007staple$").count, 0)
         
         XCTAssertEqual(Keyboard.dvorak.matches("D0g..................").count, 0)
@@ -62,9 +62,9 @@ extension KeyboardTests {
         XCTAssertEqual(Keyboard.dvorak.matches("abcdefghijk987654321").count, 2)
         XCTAssertEqual(Keyboard.dvorak.matches("abcdefghijk987654321").first?.entropy ?? -1.0, 11.876517, accuracy: 0.00001)
         XCTAssertEqual(Keyboard.keypad.matches("abcdefghijk987654321").count, 3)
-        XCTAssertEqual(Keyboard.keypad.matches("abcdefghijk987654321").first?.entropy ?? -1.0, 7.228819, accuracy: 0.00001)
+        XCTAssertEqual(Keyboard.keypad.matches("abcdefghijk987654321").first?.entropy ?? -1.0, 9.228819, accuracy: 0.00001)
         XCTAssertEqual(Keyboard.macKeypad.matches("abcdefghijk987654321").count, 3)
-        XCTAssertEqual(Keyboard.macKeypad.matches("abcdefghijk987654321").first?.entropy ?? -1.0, 7.228819, accuracy: 0.00001)
+        XCTAssertEqual(Keyboard.macKeypad.matches("abcdefghijk987654321").first?.entropy ?? -1.0, 9.3219281, accuracy: 0.00001)
         XCTAssertEqual(Keyboard.qwerty.matches("abcdefghijk987654321").count, 4)
         XCTAssertEqual(Keyboard.qwerty.matches("abcdefghijk987654321").first?.entropy ?? -1.0, 9.554589, accuracy: 0.00001)
         

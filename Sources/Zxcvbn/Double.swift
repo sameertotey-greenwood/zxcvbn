@@ -1,19 +1,17 @@
 import Foundation
 
-extension Int {
+extension Double {
     init(binomial n: Int, _ k: Int) {
-        
-        // http://blog.plover.com/math/choose.html
         if k > n {
-            self = 0
+            self = 0.0
         } else if k == 0 {
-            self = 1
+            self = 1.0
         } else {
             var n: Int = n
-            var i: Int = 1
+            var i: Double = 1.0
             for d in 1...k {
-                i *= n
-                i /= d
+                i *= Double(n)
+                i /= Double(d)
                 n -= 1
             }
             self = i
