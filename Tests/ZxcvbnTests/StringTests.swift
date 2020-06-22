@@ -6,6 +6,20 @@ final class StringTests: XCTestCase {
 }
 
 extension StringTests {
+    func testZxcvbn() {
+        XCTAssertEqual("zxcvbn".zxcvbn().score, .none)
+        XCTAssertEqual("qwER43@!".zxcvbn().score, .insufficient)
+        XCTAssertEqual("correcthorsebatterystaple".zxcvbn().score, .strong)
+        XCTAssertEqual("coRrecth0rseba++ery9.23.2007staple$".zxcvbn().score, .strong)
+        XCTAssertEqual("D0g..................".zxcvbn().score, .none)
+        XCTAssertEqual("abcdefghijk987654321".zxcvbn().score, .none)
+        XCTAssertEqual("neverforget13/3/1997".zxcvbn().score, .weak)
+        XCTAssertEqual("ScoRpi0ns".zxcvbn().score, .none)
+        XCTAssertEqual("do you know".zxcvbn().score, .none)
+        XCTAssertEqual("rWibMFACxAUGZmxhVncy".zxcvbn().score, .strong)
+        XCTAssertEqual("".zxcvbn().score, .none)
+    }
+    
     func testCardinality() {
         XCTAssertEqual("zxcvbn".cardinality, 26)
         XCTAssertEqual("qwER43@!".cardinality, 95)

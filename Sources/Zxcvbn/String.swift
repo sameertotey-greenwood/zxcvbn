@@ -1,6 +1,23 @@
 import Foundation
 
 extension String {
+    public func zxcvbn(custom: [String] = []) -> Result {
+        return Result(string: self, matching: [
+            Dictionary.custom(custom),
+            Dictionary.allCases,
+            L33t(dictionaries: [
+                Dictionary.custom(custom)
+            ] + Dictionary.allCases),
+            Pattern.allCases,
+            Repeat(),
+            Sequence.allCases,
+            [
+                Keyboard.qwerty,
+                Keyboard.keypad
+            ]
+        ])
+    }
+    
     var cardinality: Int {
         var cardinality: [Int] = [0, 0, 0, 0]
         for component in components {

@@ -1,7 +1,7 @@
 import Foundation
 
 enum Pattern: String, CaseIterable {
-    case date, year, digits
+    case digits, year, date
     
     var expression: NSRegularExpression {
         switch self {
