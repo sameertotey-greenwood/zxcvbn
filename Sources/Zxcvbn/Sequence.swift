@@ -45,7 +45,7 @@ extension Sequence: Matching {
     }
 }
 
-struct SequenceMatch: Match {
+public struct SequenceMatch: Match {
     enum Direction: Int, CaseIterable {
         case forward = 1, reverse = -1
     }
@@ -55,11 +55,11 @@ struct SequenceMatch: Match {
     let space: Int
     
     // MARK: Match
-    let range: ClosedRange<Int>
-    let token: String
-    let pattern: String = "sequence"
+    public static let pattern: String = "sequence"
+    public let range: ClosedRange<Int>
+    public let token: String
     
-    var entropy: Double {
+    public var entropy: Double {
         let component: String = token.components.first!
         var entropy: Double = direction != .forward ? 1.0 : 0.0
         if ["a", "1"].contains(component) {

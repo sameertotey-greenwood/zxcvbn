@@ -57,7 +57,7 @@ extension Pattern: Matching {
     }
 }
 
-struct PatternMatch: Match {
+public struct PatternMatch: Match {
     let expression: NSRegularExpression
     let components: [Int]
     
@@ -70,11 +70,12 @@ struct PatternMatch: Match {
     }
     
     // MARK: Match
-    let range: ClosedRange<Int>
-    let token: String
-    let pattern: String
+    public static let pattern: String = "pattern"
+    public let range: ClosedRange<Int>
+    public let token: String
+    public let pattern: String
     
-    var entropy: Double {
+    public var entropy: Double {
         switch Pattern(rawValue: pattern)! {
         case .date:
             return log2((components.first ?? 0 < 100 ? 100.0 : 119.0) * 12.0 * 31.0) + (components.count == 4 ? 2.0 : 0.0)

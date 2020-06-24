@@ -32,15 +32,15 @@ extension Repeat: Matching {
     }
 }
 
-struct RepeatMatch: Match {
-    let repeated: String
+public struct RepeatMatch: Match {
+    public let repeated: String
     
     // MARK: Match
-    let range: ClosedRange<Int>
-    let token: String
-    let pattern: String = "repeat"
+    public static let pattern: String = "repeat"
+    public let range: ClosedRange<Int>
+    public let token: String
     
-    var entropy: Double {
+    public var entropy: Double {
         return log2(Double(token.cardinality * token.count))
     }
 }

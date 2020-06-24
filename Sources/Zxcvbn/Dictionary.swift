@@ -78,17 +78,17 @@ extension Dictionary: Matching {
     }
 }
 
-struct DictionaryMatch: Match {
-    let rank: Int
-    let matched: String
-    let dictionaryName: String
+public struct DictionaryMatch: Match {
+    public let rank: Int
+    public let matched: String
+    public let dictionaryName: String
     
     // MARK: Match
-    let range: ClosedRange<Int>
-    let token: String
-    let pattern: String = "dictionary"
+    public static let pattern: String = "dictionary"
+    public let range: ClosedRange<Int>
+    public let token: String
     
-    var entropy: Double {
+    public var entropy: Double {
         return log2(Double(rank)) + uppercasedEntropy
     }
     

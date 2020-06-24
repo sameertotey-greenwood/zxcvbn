@@ -12,8 +12,8 @@ struct BruteForceMatch: Match {
     }
     
     // MARK: Match
+    static let pattern: String = "bruteforce"
     let range: ClosedRange<Int>
     let token: String
-    let pattern: String = "bruteforce"
     let entropy: Double
 }

@@ -24,7 +24,8 @@ name: "Zxcvbn",
     targets: [
         .target(name: "Zxcvbn", resources: [
             .copy("Dictionary.json"),
-            .copy("Keyboard.json")
+            .copy("Keyboard.json"),
+            .copy("L33t.json")
         ]),
         .target(name: "ZxcvbnCLI", dependencies: [
             .product(name: "ArgumentParser", package: "swift-argument-parser"),

@@ -74,7 +74,8 @@ struct L33t {
     }
     
     static var substitutionTable: [String: [String]] {
-        return try! JSONDecoder().decode([String: [String]].self, from: L33t_Data)
+        let url: URL = Bundle.module.url(forResource: "L33t", withExtension: "json")!
+        return try! JSONDecoder().decode([String: [String]].self, from: try! Data(contentsOf: url))
     }
     
     let dictionaries: [Dictionary]
@@ -113,8 +114,8 @@ extension L33t: Matching {
     }
 }
 
-struct L33tMatch: Match {
-    let dictionaryMatch: DictionaryMatch
+public struct L33tMatch: Match {
+    public let dictionaryMatch: DictionaryMatch
     let substitutions: [String: String]
     
     init(dictionary match: DictionaryMatch, token: String, substitutions: [String: String]) {
@@ -125,11 +126,11 @@ struct L33tMatch: Match {
     }
     
     // MARK: Match
-    let range: ClosedRange<Int>
-    let token: String
-    let pattern: String = "l33t"
+    public static let pattern: String = "l33t"
+    public let range: ClosedRange<Int>
+    public let token: String
     
-    var entropy: Double {
+    public var entropy: Double {
         var possibilities: Double = 0.0
         for key in substitutions.keys {
             let keyLength: Int = token.components(separatedBy: key).count - 1
@@ -141,55 +142,3 @@ struct L33tMatch: Match {
         return dictionaryMatch.entropy + max(log2(possibilities), 1.0)
     }
 }
-
-private let L33t_Data: Data = """
-{
-    "a": [
-        "4",
-        "@"
-    ],
-    "b": [
-        "8"
-    ],
-    "c": [
-        "(",
-        "{",
-        "[",
-        "<"
-    ],
-    "e": [
-        "3"
-    ],
-    "g": [
-        "6",
-        "9"
-    ],
-    "i": [
-        "1",
-        "!",
-        "|"
-    ],
-    "l": [
-        "1",
-        "|",
-        "7"
-    ],
-    "o": [
-        "0"
-    ],
-    "s": [
-        "$",
-        "5"
-    ],
-    "t": [
-        "+",
-        "7"
-    ],
-    "x": [
-        "%"
-    ],
-    "z": [
-        "2"
-    ]
-}
-""".data(using: .utf8)!

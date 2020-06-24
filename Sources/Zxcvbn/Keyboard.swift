@@ -1,9 +1,9 @@
 import Foundation
 
-enum Keyboard: String, CaseIterable {
+public enum Keyboard: String, CaseIterable {
     case qwerty, dvorak, macKeypad = "mac_keypad", keypad
     
-    var averageDegree: Int {
+    public var averageDegree: Int {
         var total: Int = 0
         for values in keyAdjacencyMap.values {
             total += values.filter { $0 != nil }.count
@@ -11,7 +11,7 @@ enum Keyboard: String, CaseIterable {
         return total / keyAdjacencyMap.count
     }
     
-    var keyCount: Int {
+    public var keyCount: Int {
         return keyAdjacencyMap.count
     }
     
@@ -80,17 +80,17 @@ extension Keyboard: Matching {
     }
 }
 
-struct KeyboardMatch: Match {
+public struct KeyboardMatch: Match {
     let turns: Int
     let shiftedCount: Int
-    let keyboard: Keyboard
+    public let keyboard: Keyboard
     
     // MARK: Match
-    let range: ClosedRange<Int>
-    let token: String
-    let pattern: String = "keyboard"
+    public static let pattern: String = "keyboard"
+    public let range: ClosedRange<Int>
+    public let token: String
     
-    var entropy: Double {
+    public var entropy: Double {
         var possibilities: Double = 0.0
         for i in 2...token.count {
             for j in 1...min(i - 1, self.turns) {
@@ -105,7 +105,6 @@ struct KeyboardMatch: Match {
                 possibilities += Double(binomial: shiftedCount + unshiftedCount, i)
             }
             entropy += log2(possibilities)
-            
         }
         return entropy
     }
