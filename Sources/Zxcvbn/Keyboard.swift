@@ -3,7 +3,7 @@ import Foundation
 public enum Keyboard: String, CaseIterable {
     case qwerty, dvorak, macKeypad = "mac_keypad", keypad
     
-    public var averageDegree: Int {
+    var averageDegree: Int {
         var total: Int = 0
         for values in keyAdjacencyMap.values {
             total += values.filter { $0 != nil }.count
@@ -11,7 +11,7 @@ public enum Keyboard: String, CaseIterable {
         return total / keyAdjacencyMap.count
     }
     
-    public var keyCount: Int {
+    var keyCount: Int {
         return keyAdjacencyMap.count
     }
     
@@ -69,7 +69,7 @@ extension Keyboard: Matching {
                 } else {
                     if j - i > 2 {
                         let range: ClosedRange<Int> = i...(j - 1)
-                        matches.append(KeyboardMatch(turns: turns, shiftedCount: shiftedCount, keyboard: self, range: range, token: "\(components[range].joined())"))
+                        matches.append(KeyboardMatch(keyboard: self, shiftedCount: shiftedCount, turns: turns, range: range, token: "\(components[range].joined())"))
                     }
                     i = j
                     break
@@ -81,12 +81,12 @@ extension Keyboard: Matching {
 }
 
 public struct KeyboardMatch: Match {
-    let turns: Int
-    let shiftedCount: Int
     public let keyboard: Keyboard
+    let shiftedCount: Int
+    let turns: Int
     
     // MARK: Match
-    public static let pattern: String = "keyboard"
+    public let pattern: String = "keyboard"
     public let range: ClosedRange<Int>
     public let token: String
     

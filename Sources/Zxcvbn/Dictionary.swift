@@ -1,6 +1,6 @@
 import Foundation
 
-enum Dictionary: RawRepresentable, Equatable, CaseIterable {
+public enum Dictionary: RawRepresentable, Equatable, CaseIterable {
     case passwords, english, femaleNames, surnames, maleNames, custom([String])
     
     var ranked: [String: Int] {
@@ -31,7 +31,7 @@ enum Dictionary: RawRepresentable, Equatable, CaseIterable {
     private static var ranked: [String: [String: Int]]?
     
     // MARK: RawRepresentable
-    var rawValue: String {
+    public var rawValue: String {
         switch self {
         case .passwords:
             return "passwords"
@@ -48,12 +48,12 @@ enum Dictionary: RawRepresentable, Equatable, CaseIterable {
         }
     }
     
-    init?(rawValue: String) {
+    public init?(rawValue: String) {
         fatalError("init(rawValue:) has not been implemented")
     }
     
     // MARK: CaseIterable
-    static let allCases: [Self] = [.passwords, .english, .femaleNames, .surnames, .maleNames]
+    public static let allCases: [Self] = [.passwords, .english, .femaleNames, .surnames, .maleNames]
 }
 
 extension Dictionary: Matching {
@@ -71,7 +71,7 @@ extension Dictionary: Matching {
                 guard let rank: Int = ranked[matched] else {
                     continue
                 }
-                matches.append(DictionaryMatch(rank: rank, matched: matched, dictionaryName: rawValue, range: range, token: components[range].joined()))
+                matches.append(DictionaryMatch(rank: rank, matched: matched, dictionary: self, range: range, token: components[range].joined()))
             }
         }
         return matches
@@ -81,10 +81,10 @@ extension Dictionary: Matching {
 public struct DictionaryMatch: Match {
     public let rank: Int
     public let matched: String
-    public let dictionaryName: String
+    public let dictionary: Dictionary
     
     // MARK: Match
-    public static let pattern: String = "dictionary"
+    public let pattern: String = "dictionary"
     public let range: ClosedRange<Int>
     public let token: String
     

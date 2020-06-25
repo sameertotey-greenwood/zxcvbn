@@ -62,18 +62,17 @@ public struct PatternMatch: Match {
     let components: [Int]
     
     init(_ pattern: Pattern, range: ClosedRange<Int>, token: String, components: [Int] = []) {
+        self.pattern = pattern.rawValue
         self.expression = pattern.expression
         self.components = components
         self.range = range
         self.token = token
-        self.pattern = pattern.rawValue
     }
     
     // MARK: Match
-    public static let pattern: String = "pattern"
+    public let pattern: String
     public let range: ClosedRange<Int>
     public let token: String
-    public let pattern: String
     
     public var entropy: Double {
         switch Pattern(rawValue: pattern)! {

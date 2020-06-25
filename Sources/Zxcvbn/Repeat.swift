@@ -36,7 +36,7 @@ public struct RepeatMatch: Match {
     public let repeated: String
     
     // MARK: Match
-    public static let pattern: String = "repeat"
+    public let pattern: String = "repeat"
     public let range: ClosedRange<Int>
     public let token: String
     

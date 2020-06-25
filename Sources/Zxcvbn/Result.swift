@@ -24,6 +24,7 @@ public struct Result {
     }
     
     public let string: String
+    public let matches: [Match]
     public let entropy: Double
     public let calculationTime: TimeInterval
     public let crackTime: TimeInterval
@@ -78,6 +79,7 @@ public struct Result {
             matches.append(match)
         }
         self.string = string
+        self.matches = matches
         entropy = upToK.last ?? 0.0
         self.crackTime = 0.5 * pow(2.0, entropy) * 0.0001
         score = Score(self.crackTime)

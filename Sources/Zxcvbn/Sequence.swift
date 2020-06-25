@@ -34,7 +34,7 @@ extension Sequence: Matching {
                 } else {
                     if j - i > 2 {
                         let range: ClosedRange<Int> = i...(j - 1)
-                        matches.append(SequenceMatch(sequence: rawValue, direction: direction, space: rawComponents.count, range: range, token: components[range].joined()))
+                        matches.append(SequenceMatch(sequence: rawValue, direction: direction, range: range, token: components[range].joined()))
                     }
                     break
                 }
@@ -46,16 +46,15 @@ extension Sequence: Matching {
 }
 
 public struct SequenceMatch: Match {
-    enum Direction: Int, CaseIterable {
+    public enum Direction: Int, CaseIterable {
         case forward = 1, reverse = -1
     }
     
-    let sequence: String
-    let direction: Direction
-    let space: Int
+    public let sequence: String
+    public let direction: Direction
     
     // MARK: Match
-    public static let pattern: String = "sequence"
+    public let pattern: String = "sequence"
     public let range: ClosedRange<Int>
     public let token: String
     

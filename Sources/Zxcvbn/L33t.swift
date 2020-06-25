@@ -126,7 +126,7 @@ public struct L33tMatch: Match {
     }
     
     // MARK: Match
-    public static let pattern: String = "l33t"
+    public let pattern: String = "l33t"
     public let range: ClosedRange<Int>
     public let token: String
     

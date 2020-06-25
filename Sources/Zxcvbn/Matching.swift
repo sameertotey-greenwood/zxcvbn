@@ -5,7 +5,7 @@ protocol Matching {
 }
 
 public protocol Match {
-    static var pattern: String {
+    var pattern: String {
         get
     }
     
@@ -19,11 +19,5 @@ public protocol Match {
     
     var entropy: Double {
         get
-    }
-}
-
-extension Match {
-    public var pattern: String {
-        return Self.pattern
     }
 }

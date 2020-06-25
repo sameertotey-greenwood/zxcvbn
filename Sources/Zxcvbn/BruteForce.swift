@@ -1,7 +1,6 @@
 import Foundation
 
-struct BruteForceMatch: Match {
-    
+public struct BruteForceMatch: Match {
     init?(range: ClosedRange<Int>, string: String) {
         guard !string.isEmpty, range.lowerBound >= 0, range.upperBound < string.count else {
             return nil
@@ -12,8 +11,8 @@ struct BruteForceMatch: Match {
     }
     
     // MARK: Match
-    static let pattern: String = "bruteforce"
-    let range: ClosedRange<Int>
-    let token: String
-    let entropy: Double
+    public let pattern: String = "bruteforce"
+    public let range: ClosedRange<Int>
+    public let token: String
+    public let entropy: Double
 }
