@@ -18,12 +18,13 @@ struct ZxcvbnCLI: ParsableCommand {
             print("  \(score == result.score ? "◼︎" : "◻︎") \(score.rawValue) - \(score)")
         }
         print("")
-        print("CRACK TIME: \(result.crackTime.formatted)")
-        print("")
         print("MATCHES:")
-        for match in result.matches {
-            print("  \(match.token)")
+        for match in result.matches.filter({ ($0 as? BruteForceMatch) == nil }) {
+            let token: String = "\"\(match.token.prefix(14))\""
+            print("  \(token)\(String(repeating: " ", count: 16 - token.count))  \(match.pattern)")
         }
+        print("")
+        print("CRACK TIME: \(result.crackTime.formatted)")
         print("")
     }
 }
