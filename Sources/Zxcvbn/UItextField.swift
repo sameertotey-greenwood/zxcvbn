@@ -9,15 +9,20 @@ extension UITextField {
         resultView.frame.size.width = 12.0
         
         let textField: Self = Self()
+        textField.autocapitalizationType = .none
+        textField.autocorrectionType = .no
         textField.rightView = resultView
         textField.rightViewMode = .always
         
-        NotificationCenter.default.addObserver(textField, selector: #selector(textDidChange(_:)), name: Self.textDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(textField, selector: #selector(textDidChange(_:)), name: Self.textDidChangeNotification, object: textField)
         
         return textField
     }
     
     @objc private func textDidChange(_ notification: Notification) {
+        guard notification.object as? Self == self else {
+            return
+        }
         (rightView as? ResultView)?.string = text
     }
 }
