@@ -2,8 +2,8 @@
 import UIKit
 
 extension UITextField {
-    public static func zxcvbn(custom: [String] = []) -> Self {
-        let resultView: ResultView = ResultView(custom: custom)
+    public static func zxcvbn() -> Self {
+        let resultView: ResultView = ResultView()
         resultView.autoresizingMask = [.flexibleHeight]
         resultView.frame.size.height = 31.0
         resultView.frame.size.width = 12.0
@@ -23,7 +23,7 @@ extension UITextField {
         guard notification.object as? Self == self else {
             return
         }
-        (rightView as? ResultView)?.string = text
+        (rightView as? ResultView)?.result = text?.zxcvbn()
     }
 }
 #endif

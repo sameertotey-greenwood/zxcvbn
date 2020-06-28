@@ -2,19 +2,10 @@
 import UIKit
 
 public class ResultView: UIControl {
-    public private(set) var custom: [String] = []
-    public private(set) var result: Result?
-    
-    public var string: String? = nil {
+    public var result: Result? {
         didSet {
-            result = string?.zxcvbn(custom: custom)
             setNeedsLayout()
         }
-    }
-    
-    public convenience init(custom: [String]) {
-        self.init(frame: .zero)
-        self.custom = custom
     }
     
     public required init?(coder: NSCoder) {
