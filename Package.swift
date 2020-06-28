@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-name: "Zxcvbn",
+name: "zxcvbn",
     platforms: [
         .macOS(.v10_15),
         .iOS(.v13),
