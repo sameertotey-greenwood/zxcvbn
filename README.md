@@ -19,6 +19,8 @@ Targets [iOS](https://developer.apple.com/ios)/[iPadOS](https://developer.apple.
 
 ## Command-Line Interface
 
+Included in the package
+
 ![](ZxcvbnCLI.png)
 
 ## Example Usage
