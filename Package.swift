@@ -19,14 +19,10 @@ let package = Package(
         ])
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-argument-parser", from: "0.1.0")
+        .package(url: "https://github.com/apple/swift-argument-parser", from: "0.3.1")
     ],
     targets: [
-        .target(name: "Zxcvbn", resources: [
-            .copy("Dictionary.json"),
-            .copy("Keyboard.json"),
-            .copy("L33t.json")
-        ]),
+        .target(name: "Zxcvbn"),
         .target(name: "ZxcvbnCLI", dependencies: [
             .product(name: "ArgumentParser", package: "swift-argument-parser"),
             "Zxcvbn"

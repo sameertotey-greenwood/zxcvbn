@@ -1,7 +1,7 @@
 import Foundation
 
 public struct Result {
-    public enum Score: Int, CaseIterable {
+    public enum Score: Int, CaseIterable, Comparable, Identifiable {
         case none = 0
         case insufficient = 1
         case weak = 2
@@ -20,6 +20,16 @@ public struct Result {
             } else {
                 self = .strong
             }
+        }
+        
+        // MARK: Comparable
+        public static func < (lhs: Self, rhs: Self) -> Bool {
+            return lhs.rawValue < rhs.rawValue
+        }
+        
+        // MARK: Identifiable
+        public var id: Int {
+            return rawValue
         }
     }
     

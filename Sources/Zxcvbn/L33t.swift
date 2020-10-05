@@ -74,8 +74,7 @@ struct L33t {
     }
     
     static var substitutionTable: [String: [String]] {
-        let url: URL = Bundle.module.url(forResource: "L33t", withExtension: "json")!
-        return try! JSONDecoder().decode([String: [String]].self, from: try! Data(contentsOf: url))
+        return try! JSONDecoder().decode([String: [String]].self, from: L33t_Data)
     }
     
     let dictionaries: [Dictionary]
@@ -142,3 +141,55 @@ public struct L33tMatch: Match {
         return dictionaryMatch.entropy + max(log2(possibilities), 1.0)
     }
 }
+
+private let L33t_Data: Data = """
+{
+    "a": [
+        "4",
+        "@"
+    ],
+    "b": [
+        "8"
+    ],
+    "c": [
+        "(",
+        "{",
+        "[",
+        "<"
+    ],
+    "e": [
+        "3"
+    ],
+    "g": [
+        "6",
+        "9"
+    ],
+    "i": [
+        "1",
+        "!",
+        "|"
+    ],
+    "l": [
+        "1",
+        "|",
+        "7"
+    ],
+    "o": [
+        "0"
+    ],
+    "s": [
+        "$",
+        "5"
+    ],
+    "t": [
+        "+",
+        "7"
+    ],
+    "x": [
+        "%"
+    ],
+    "z": [
+        "2"
+    ]
+}
+""".data(using: .utf8)!

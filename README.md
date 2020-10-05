@@ -17,6 +17,10 @@ This implementation for [Swift Package Manager](https://swift.org/package-manage
 
 Targets [iOS](https://developer.apple.com/ios)/[iPadOS](https://developer.apple.com/ipad)/[tvOS ](https://developer.apple.com/tvos) 13, as well as [watchOS](https://developer.apple.com/watchos) 6 and [macOS](https://developer.apple.com/macos) 10.15. Written in [Swift](https://developer.apple.com/documentation/swift) 5.3 and requires [Xcode](https://developer.apple.com/xcode) 12 or newer to build. Command-line interface depends on [Swift Argument Parser.](https://github.com/apple/swift-argument-parser)
 
+## Command-Line Interface
+
+![](ZxcvbnCLI.png)
+
 ## Example Usage
 
 Password evaluation is exposed as a function of `String`:
@@ -42,30 +46,25 @@ let result: Result = "coRrecth0rseba++ery9.23.2007staple$".zxcvbn(custom: [
 ])
 ```
 
-### `UIKit` Additions
+## `SwiftUI` Support
 
 ![](Zxcvbn.png)
 
-When built for iOS, `Zxcvbn` includes `ResultView`, a replacement for `DBPasswordStrengthMeterView` when moving from the Objective-C implementation. `ResultView` inherits the `tintColor` of its parent and can be stretched or smooshed to fit anywhere.
+`Zxcvbn` includes `ResultView`, a [SwiftUI](https://developer.apple.com/documentation/swiftui) replacement for `DBPasswordStrengthMeterView` when moving from the Objective-C implementation. 
 
 ```swift
-import UIKit
+import SwiftUI
 import Zxcvbn
 
-private let resultView: ResultView = ResultView(custom: [])
-resultView.addTarget(self, action: #selector(showResultDetail), for: .touchUpInside)
-resultView.tintColor = .systemTeal
-resultView.result = "coRrecth0rseba++ery9.23.2007staple$".zxcvbn()
-```
-
-Additionally, `Zxcvbn` adds a `UITextField` factory that pre-configures a `ResultView` to live-update as the text value changes (pictured above). Add password evaluation to an existing password text field, even custom subclasses, in as little as two lines of code: 
-
-```swift
-import UIKit
-import Zxcvbn
-
-let textField: CustomTextField = .zxcvbn()
-textField.isSecureTextEntry = true
+struct ContentView: View {
+    @State private var text: String = ""
+    
+    var body: some View {
+        SecureField("Password", text: $text)
+            .textFieldStyle(RoundedBorderTextFieldStyle())
+            .overlay(ResultView(text), alignment: .trailing)
+    }
+}
 ```
 
 ## Acknowledgments
