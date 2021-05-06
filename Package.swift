@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.4
 
 import PackageDescription
 
@@ -19,11 +19,11 @@ let package = Package(
         ])
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-argument-parser", from: "0.3.1")
+        .package(url: "https://github.com/apple/swift-argument-parser", from: "0.4.3")
     ],
     targets: [
         .target(name: "Zxcvbn"),
-        .target(name: "ZxcvbnCLI", dependencies: [
+        .executableTarget(name: "ZxcvbnCLI", dependencies: [
             .product(name: "ArgumentParser", package: "swift-argument-parser"),
             "Zxcvbn"
         ]),
